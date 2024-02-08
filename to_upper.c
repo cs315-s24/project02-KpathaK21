@@ -3,6 +3,7 @@
 #include <string.h>
 
 void to_upper_c(char *buf);
+void to_upper_s(char *buf);
 
 int main(int argc, char **argv) {
     const int BUF_MAX = 33;
@@ -17,11 +18,11 @@ int main(int argc, char **argv) {
     to_upper_c(buf);
     printf("C: %s\n", buf);
 
-    /* TODO
+    
     strncpy(buf, argv[1], BUF_MAX - 1);
     to_upper_s(buf);
     printf("Asm: %s\n", buf);
-    */
+    
 
     return 0;    
 }

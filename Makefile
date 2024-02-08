@@ -1,11 +1,14 @@
 PROGS = to_upper max3 find_max_index sort 
-TO_UPPER_OBJS = to_upper.o to_upper_c.o
-MAX3_OBJS = max3.o max3_c.o
-FIND_MAX_INDEX_OBJS = find_max_index.o find_max_index_c.o
-SORT_OBJS = sort.o sort_c.o find_max_index_c.o
+TO_UPPER_OBJS = to_upper.o to_upper_c.o to_upper_s.o
+MAX3_OBJS = max3.o max3_c.o max3_s.o 
+FIND_MAX_INDEX_OBJS = find_max_index.o find_max_index_c.o find_max_index_s.o
+SORT_OBJS = sort.o sort_c.o find_max_index_c.o sort_s.o find_max_index_s.o
 
 %.o: %.c
 	gcc -g -c -o $@ $<
+
+%.o: %.s
+	as -g -o $@ $<
 
 all: $(PROGS)
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int max3_c(int, int, int);
+int max3_s(int, int, int);
 
 int main(int argc, char **argv) {
     if (argc != 4) {
@@ -16,10 +17,11 @@ int main(int argc, char **argv) {
     int c_result = max3_c(a, b, c);
     printf("C: %d\n", c_result);
 
-    /* TODO
+    
     int s_result = max3_s(a, b, c);
     printf("Asm: %d\n", s_result);
-    */
+    
 
     return 0;
 }
+

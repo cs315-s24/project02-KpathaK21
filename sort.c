@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int sort_c(int *arr, int len);
+int sort_s(int *arr, int len);
 
 int init_array(int argc, char **argv, int *arr) {
     int i;
@@ -32,10 +33,10 @@ int main(int argc, char **argv) {
     sort_c(arr, len);
     print_array("C:", arr, len);
     
-    /* TODO
+   
     init_array(argc, argv, arr);
     sort_s(arr, len);
     print_array("Asm:", arr, len);
-    */
+    
     return 0;
 }

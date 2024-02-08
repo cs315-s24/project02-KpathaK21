@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int find_max_index_c(int *arr, int len);
+int find_max_index_s(int *arr, int len);
 
 int main(int argc, char **argv) {
     const int ARR_MAX = 32;
@@ -20,10 +21,9 @@ int main(int argc, char **argv) {
     int c_result = find_max_index_c(arr, len);
     printf("C: %d\n", c_result);
 
-    /* TODO
     int s_result = find_max_index_s(arr, len);
     printf("Asm: %d\n", s_result);
-    */
+    
 
     return 0;
 }
