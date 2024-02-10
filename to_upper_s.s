@@ -1,26 +1,14 @@
 .global to_upper_s
 
-
-
 to_upper_s:
-# Save the address of the input string
-    mv a1, a0
+    # Save the address of the input string
     jal ra, to_upper   # Call the to_upper function
-
-   # Print the modified string
-        mv a0, a1          # Load the modified string address
-        jal ra, print_string
-       
-    
-        # Exit the program
-        li a7, 93          # Syscall number for exit
-        li a0, 0           # Exit code 0 for success
-        ecall
+    ret
 
 # Function to convert a string to uppercase
 to_upper:
     # Load the address of the input string
-    mv a0, a1
+   
     li t4, 100         # Max number of iterations to prevent infinite loop
     li t5, 0           # Initialize loop counter
 
@@ -43,29 +31,9 @@ loop:
 
 not_lower:
     sb t0, 0(a0)       # Store the modified byte back to the string
-    
-    # Move to the next byte in the string if not end of string
-	beqz t0, end_loop
-	addi a0, a0, 1
-	j loop
-end_loop:
-	addi t5, t5, 1
-	j loop
-end:
-    sb zero, 0(a0)     # Null-terminate the string
-    ret
+    addi a0, a0, 1     # Move to the next byte in the string
+    addi t5, t5, 1     # Increment loop counter
+    j loop
 
-# Function to print a null-terminated string
-print_string:
-    mv a1, a0          # Load the string address into a1
-loop_print:
-    lbu a0, 0(a1)      # Load the next byte of the string
-    beqz a0, end_print # Exit loop if null terminator is reached
-    li a7, 93          # Syscall number for write
-    li a2, 1           # Number of bytes to write
-    li a1, 1           # File descriptor for stdout
-    ecall
-    addi a1, a1, 1     # Move to the next byte of the string
-    j loop_print
-end_print:
+end:
     ret

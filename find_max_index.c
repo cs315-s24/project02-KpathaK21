@@ -21,9 +21,9 @@ int main(int argc, char **argv) {
     int c_result = find_max_index_c(arr, len);
     printf("C: %d\n", c_result);
 
-    int s_result = find_max_index_s(arr, len);
+     int s_result = find_max_index_s(arr, len);
     printf("Asm: %d\n", s_result);
-    
+
 
     return 0;
 }
