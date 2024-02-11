@@ -1,48 +1,29 @@
 .global max2_s
 .global max3_s
 
-
-# Define function max2_s
+# Function to find maximum of two signed integers
+# Arguments: a0 = first integer, a1 = second integer
+# Returns: maximum of a0 and a1 in a0
 max2_s:
-    # Compare a and b
-    bge a0, a1, greater_than_or_equal
-    # if (a < b), return b
-    mv a0, a1
+    bge a0, a1, max2_s_end  # Branch if a0 >= a1
+    mv a0, a1               # Move a1 to a0 if a1 > a0
+max2_s_end:
     ret
 
-greater_than_or_equal:
-    # if (a >= b), return a
-    ret
-    
-# Define function max3_s
+# Function to find maximum of three signed integers
+# Arguments: a0 = first integer, a1 = second integer, a2 = third integer
+# Returns: maximum of a0, a1, and a2 in a0
 max3_s:
-    # Allocate space on the stack for variables
-    addi sp, sp, -8
+    # Call max2_s to find maximum of first two integers
+    jal ra, max2_s
 
-    # Call max2_c for a and b
-    call max2_c
-    mv s0, a0   # Store the result of max2_c(a, b) in s0
+    # Save the result in temporary register t0
+    mv t0, a0
 
-    # Store first_two on the stack
-    sw s0, 0(sp)
-
-    # Move c to a1 register
+    # Call max2_s to find maximum of t0 and third integer (a2)
+    mv a0, t0
     mv a1, a2
+    jal ra, max2_s
 
-    # Load first_two from the stack
-    lw a0, 0(sp)
-
-    # Call max2_c for first_two and c
-    call max2_c
-    
-
-    # Clean up the stack
-    addi sp, sp, 8
-
-    # Return the result
-    mv a0,a0
-
-    li a7, 1
-    ecall
-
+    # The result is in a0
     ret

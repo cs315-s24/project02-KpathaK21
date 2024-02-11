@@ -2,12 +2,10 @@
 
 to_upper_s:
     # Save the address of the input string
-    jal ra, to_upper   # Call the to_upper function
-    ret
+    mv t6, a0
 
-# Function to convert a string to uppercase
-to_upper:
     # Load the address of the input string
+    mv a0, t6
    
     li t4, 100         # Max number of iterations to prevent infinite loop
     li t5, 0           # Initialize loop counter

@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
     int b = atoi(argv[2]);
     int c = atoi(argv[3]);
 
+    
     int c_result = max3_c(a, b, c);
     printf("C: %d\n", c_result);
 
