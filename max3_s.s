@@ -1,58 +1,48 @@
-.global max3_s
 .global max2_s
+.global max3_s
 
+
+# Define function max2_s
 max2_s:
-    # Preserve return address
-        addi    sp, sp, -4
-        sw      ra, 0(sp)
-    
-        # Load arguments
-        mv      t0, a0
-        mv      t1, a1
-    
-        # Compare values
-        blt     t0, t1, max2_s_end
-    
-        # If t2 > t3, return t2
-        mv      a0, t0
-        j       max2_s_exit
-max2_s_end:
-   # If t2 <= t3, return t3
-   mv      a0, t1
-
-max2_s_exit:
-    # Restore return address
-    lw      ra, 0(sp)
-    addi    sp, sp, 4
+    # Compare a and b
+    bge a0, a1, greater_than_or_equal
+    # if (a < b), return b
+    mv a0, a1
     ret
 
-
+greater_than_or_equal:
+    # if (a >= b), return a
+    ret
+    
+# Define function max3_s
 max3_s:
-   # Preserve return address
-        addi    sp, sp, -8
-        sw      ra, 0(sp)
+    # Allocate space on the stack for variables
+    addi sp, sp, -8
+
+    # Call max2_c for a and b
+    call max2_c
+    mv s0, a0   # Store the result of max2_c(a, b) in s0
+
+    # Store first_two on the stack
+    sw s0, 0(sp)
+
+    # Move c to a1 register
+    mv a1, a2
+
+    # Load first_two from the stack
+    lw a0, 0(sp)
+
+    # Call max2_c for first_two and c
+    call max2_c
     
-        # Load arguments
-         mv      t0, a0
-    	 mv      t1, a1
-    
-        # Call max2_s for first comparison
-        jal     max2_s
 
+    # Clean up the stack
+    addi sp, sp, 8
 
-     # Store result of first comparison
-    mv      a1, a0
+    # Return the result
+    mv a0,a0
 
-    # Load the third parameter from stack pointer
-    lw      a0, 8(sp)   # Assuming third parameter is at 8(sp) after the return address and two parameters
+    li a7, 1
+    ecall
 
-    # Call max2_s for second comparison
-    jal     max2_s
-
-    # Store result of second comparison
-    mv      a2, a0
-
-    # Restore return address
-    lw      ra, 0(sp)
-    addi    sp, sp, 8
     ret
