@@ -12,7 +12,6 @@ to_upper_s:
 
 loop:
     lbu t0, 0(a0)      # Load a byte from the string
-
     
     # Check if the byte is zero (end of string) or if max iterations reached, and exit loop if true
     beqz t0, end
